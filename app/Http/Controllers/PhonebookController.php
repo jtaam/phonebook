@@ -75,9 +75,13 @@ class PhonebookController extends Controller
      * @param  \App\Phonebook  $phonebook
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Phonebook $phonebook)
+    public function update(PhonebookRequest $request)
     {
-        //
+      $pb = Phonebook::find($request->id);
+      $pb->name = $request->name;
+      $pb->phone = $request->phone;
+      $pb->email = $request->email;
+      $pb->save();
     }
 
     /**
@@ -88,6 +92,6 @@ class PhonebookController extends Controller
      */
     public function destroy(Phonebook $phonebook)
     {
-        //
+        Phonebook::where('id', $phonebook->id)->delete();
     }
 }
